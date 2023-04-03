@@ -26,7 +26,7 @@ public class Stub {
         socket.close();
     }
 
-    public void endServer() throws IOException, ClassNotFoundException {
+    public void endServer() throws IOException {
         Socket socket = new Socket(address, port);
         ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
         outputStream.writeObject(new Message("exit", 0, 0));
