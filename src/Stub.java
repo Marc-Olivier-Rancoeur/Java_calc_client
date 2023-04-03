@@ -17,7 +17,7 @@ public class Stub {
     public void main(String commande, int chiffre1, int chiffre2) throws IOException, ClassNotFoundException {
         Socket socket = new Socket(address, port);
         ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-        outputStream.writeObject(commande + ":" + chiffre1 + "-" + chiffre2);
+        outputStream.writeObject(new Message(commande, chiffre1, chiffre2));
         ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
         String message = (String)inputStream.readObject();
         System.out.println("Réponse : " + message.substring(4));
@@ -29,7 +29,7 @@ public class Stub {
     public void endServer() throws IOException, ClassNotFoundException {
         Socket socket = new Socket(address, port);
         ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-        outputStream.writeObject("exit");
+        outputStream.writeObject(new Message("exit", 0, 0));
         outputStream.close();
         socket.close();
     }
