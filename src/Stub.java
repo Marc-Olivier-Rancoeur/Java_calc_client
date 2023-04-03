@@ -6,12 +6,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Stub {
-    private static InetAddress address;
-    private static int port;
+    private final InetAddress address;
+    private final int port;
 
     public Stub(String adresse, int port) throws UnknownHostException {
-        Stub.address = InetAddress.getByName(adresse);
-        Stub.port = port;
+        this.address = InetAddress.getByName(adresse);
+        this.port = port;
     }
 
     public void main(String commande, int chiffre1, int chiffre2) throws IOException, ClassNotFoundException {
@@ -20,7 +20,7 @@ public class Stub {
         outputStream.writeObject(commande + ":" + chiffre1 + "-" + chiffre2);
         ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
         String message = (String)inputStream.readObject();
-        System.out.println("Réponse : " + message);
+        System.out.println("Réponse : " + message.substring(4));
         outputStream.close();
         inputStream.close();
         socket.close();
